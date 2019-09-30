@@ -70,7 +70,7 @@ int TSet::operator!=(const TSet &s) const // сравнение
 	return 1;
 }
 
-TSet TSet::operator+(const TSet &s) // объединение
+TSet TSet::operator+(const TSet &s) //  объединение
 {
 	TBitField bf = BitField | s.BitField;
 
