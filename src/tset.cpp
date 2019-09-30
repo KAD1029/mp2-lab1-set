@@ -76,21 +76,25 @@ TSet TSet::operator+(const TSet &s) // объединение
 
 	TSet res(bf);
 
-	return *this;
+	return res;
 }
 
 TSet TSet::operator+(const int Elem) // объединение с элементом
 {
-	BitField.SetBit(Elem);
+	TSet res(*this);
+	
+	res.InsElem(Elem);
 
-	return *this;
+	return res;
 }
 
 TSet TSet::operator-(const int Elem) // разность с элементом
 {
-	BitField.ClrBit(Elem);
+	TSet res(*this);
 
-	return *this;
+	res.DelElem(Elem);
+
+	return res;
 }
 
 TSet TSet::operator*(const TSet &s) // пересечение
@@ -99,14 +103,16 @@ TSet TSet::operator*(const TSet &s) // пересечение
 
 	TSet res(bf);
 
-	return *this;
+	return res;
 }
 
 TSet TSet::operator~(void) // дополнение
 {
-	BitField = ~BitField;
+	TSet res(*this);
 
-	return *this;
+	res.BitField = ~BitField;
+
+	return res;
 }
 
 // перегрузка ввода/вывода
@@ -115,7 +121,7 @@ istream &operator>>(istream &istr, TSet &s) // ввод
 {
 	TBitField bf(s.GetMaxPower());
 
-	cin >> bf;
+	istr >> bf;
 
 	TBitField res(bf);
 
@@ -128,7 +134,7 @@ ostream& operator<<(ostream &ostr, const TSet &s) // вывод
 {
 	for (int i = 0; i < s.GetMaxPower(); i++)
 	{
-		cout << s.IsMember(i);
+		ostr << s.IsMember(i);
 	}
 
 	return ostr;
