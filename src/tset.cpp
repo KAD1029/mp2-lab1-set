@@ -1,7 +1,7 @@
 // ННГУ, ВМК, Курс "Методы программирования-2", С++, ООП
 //
 // tset.cpp - Copyright (c) Гергель В.П. 04.10.2001
-//   Переработано для Microsoft Visual Studio 2008 Сысоевым А.В. (19.04.2015)
+// Переработано для Microsoft Visual Studio 2008 Сысоевым А.В. (19.04.2015)
 //
 // Множество - реализация через битовые поля
 
@@ -12,7 +12,7 @@ TSet::TSet(int mp) : MaxPower(mp), BitField(mp)
 }
 
 // конструктор копирования
-TSet::TSet(const TSet &s) : MaxPower(s.MaxPower), BitField(MaxPower)
+TSet::TSet(const TSet &s) : MaxPower(s.MaxPower), BitField(s.BitField)
 {
 }
 
@@ -33,16 +33,22 @@ int TSet::GetMaxPower(void) const // получить макс. к-во эл-т�
 
 int TSet::IsMember(const int Elem) const // элемент множества?
 {
+	if (Elem >= MaxPower || Elem < 0)
+		throw 1;
 	return BitField.GetBit(Elem);
 }
 
 void TSet::InsElem(const int Elem) // включение элемента множества
 {
+	if (Elem >= MaxPower || Elem < 0)
+		throw 1;
 	BitField.SetBit(Elem);
 }
 
 void TSet::DelElem(const int Elem) // исключение элемента множества
 {
+	if (Elem >= MaxPower || Elem < 0)
+		throw 1;
 	BitField.ClrBit(Elem);
 }
 
@@ -81,8 +87,10 @@ TSet TSet::operator+(const TSet &s) // объединение
 
 TSet TSet::operator+(const int Elem) // объединение с элементом
 {
+	if (Elem >= MaxPower || Elem < 0)
+		throw 1;
 	TSet res(*this);
-	
+
 	res.InsElem(Elem);
 
 	return res;
@@ -90,6 +98,8 @@ TSet TSet::operator+(const int Elem) // объединение с элемент
 
 TSet TSet::operator-(const int Elem) // разность с элементом
 {
+	if (Elem >= MaxPower || Elem < 0)
+		throw 1;
 	TSet res(*this);
 
 	res.DelElem(Elem);
