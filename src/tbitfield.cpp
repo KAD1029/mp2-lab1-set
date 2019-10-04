@@ -48,7 +48,7 @@ TELEM TBitField::GetMemMask(const int n) const // битовая маска дл
 {
 	if (n >= BitLen || n < 0)
 		throw 1;
-	return 1 <<(n % F_SIZE);
+	return TELEM(1) <<(n % F_SIZE);
 }
 
 // доступ к битам битового поля
